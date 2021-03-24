@@ -1,4 +1,4 @@
-![build status](https://travis-ci.org/sahargavriely/solid-disco.svg?branch=master)
+![build status](https://travis-ci.com/sahargavriely/solid-disco.svg?branch=main)
 ![coverage](https://codecov.io/gh/sahargavriely/solid-disco/branch/master/graph/badge.svg)
 
 # solid-disco

@@ -8,5 +8,5 @@ setup(
     description='An example package.',
     packages=find_packages(),
     install_requires=['click', 'flask', 'werkzeug'],
-    tests_require=['pytest'],
+    tests_require=['pytest', 'pytest-cov'],
 )
