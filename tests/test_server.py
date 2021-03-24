@@ -39,26 +39,26 @@ def data_dir(tmp_path):
         process.join()
 
 
-def test_cli(tmp_path):
-    host, port = _SERVER_ADDRESS
-    cmd = ['python', 'soliddisco', 'server', 'run_server',
-           f'{host}:{port}', str(tmp_path)]
-    process = subprocess.Popen(cmd, stdout=subprocess.PIPE, )
+# def test_cli(tmp_path):
+#     host, port = _SERVER_ADDRESS
+#     cmd = ['python', 'soliddisco', 'server', 'run_server',
+#            f'{host}:{port}', str(tmp_path)]
+#     process = subprocess.Popen(cmd, stdout=subprocess.PIPE, )
 
-    def run_server():
-        process.communicate()
+#     def run_server():
+#         process.communicate()
 
-    thread = threading.Thread(target=run_server)
-    thread.start()
-    time.sleep(1)
-    _upload_thought(_USER_1, _TIMESTAMP_1, _THOUGHT_1)
-    _upload_thought(_USER_2, _TIMESTAMP_2, _THOUGHT_2)
-    process.send_signal(signal.SIGINT)
-    thread.join()
-    thought_path_1 = _get_path(tmp_path, _USER_1, _TIMESTAMP_1)
-    thought_path_2 = _get_path(tmp_path, _USER_2, _TIMESTAMP_2)
-    assert thought_path_1.read_text() == _THOUGHT_1
-    assert thought_path_2.read_text() == _THOUGHT_2
+#     thread = threading.Thread(target=run_server)
+#     thread.start()
+#     time.sleep(1)
+#     _upload_thought(_USER_1, _TIMESTAMP_1, _THOUGHT_1)
+#     _upload_thought(_USER_2, _TIMESTAMP_2, _THOUGHT_2)
+#     process.send_signal(signal.SIGINT)
+#     thread.join()
+#     thought_path_1 = _get_path(tmp_path, _USER_1, _TIMESTAMP_1)
+#     thought_path_2 = _get_path(tmp_path, _USER_2, _TIMESTAMP_2)
+#     assert thought_path_1.read_text() == _THOUGHT_1
+#     assert thought_path_2.read_text() == _THOUGHT_2
 
 
 def test_user_id(data_dir):
