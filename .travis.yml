@@ -4,6 +4,6 @@ python:
 install:
   - pip install -r requirements.txt
 script:
-  - pytest --cov-report term --cov=soliddisco
+  - pytest --cov-report=html --cov=soliddisco tests/
 after_success:
   - codecov
