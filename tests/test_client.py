@@ -76,7 +76,7 @@ def test_timestamp(get_message):
 
 def test_cli(get_message):
     host, port = _SERVER_ADDRESS
-    cmd = ['python', '../soliddisco', 'client', 'upload_thought',
+    cmd = ['python', '-m', 'soliddisco', 'client', 'upload_thought',
            f'{host}:{port}', str(_USER_1), _THOUGHT_1]
     process = subprocess.Popen(cmd, stdout=subprocess.PIPE, )
     stdout, _ = process.communicate()
@@ -89,7 +89,7 @@ def test_cli(get_message):
 
 def test_cli_error():
     host, port = _SERVER_ADDRESS
-    cmd = ['python', str(_DATA_DIR), 'client', 'upload_thought',
+    cmd = ['python', '-m', str(_DATA_DIR), 'client', 'upload_thought',
            f'{host}:{port}', str(_USER_1), _THOUGHT_1]
     process = subprocess.Popen(cmd, stdout=subprocess.PIPE, )
     stdout, _ = process.communicate()
