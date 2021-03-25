@@ -3,6 +3,7 @@ import subprocess
 import socket
 import struct
 import time
+import pathlib
 
 import pytest
 
@@ -14,6 +15,8 @@ _SERVER_BACKLOG = 1000
 
 _HEADER_FORMAT = 'LLI'
 _HEADER_SIZE = struct.calcsize(_HEADER_FORMAT)
+
+_DATA_DIR = pathlib.Path(__file__).absolute().parent.parent / 'soliddisco'
 
 _USER_1 = 1
 _USER_2 = 2
@@ -71,26 +74,26 @@ def test_timestamp(get_message):
     _assert_now(timestamp)
 
 
-# def test_cli(get_message):
-#     host, port = _SERVER_ADDRESS
-#     cmd = ['python', 'soliddisco', 'client', 'upload_thought',
-#            f'{host}:{port}', str(_USER_1), _THOUGHT_1]
-#     process = subprocess.Popen(cmd, stdout=subprocess.PIPE, )
-#     stdout, _ = process.communicate()
-#     assert b'done' in stdout.lower()
-#     user_id, timestamp, thought = get_message()
-#     assert user_id == _USER_1
-#     _assert_now(timestamp)
-#     assert thought == _THOUGHT_1
+def test_cli(get_message):
+    host, port = _SERVER_ADDRESS
+    cmd = ['python', str(_DATA_DIR), 'client', 'upload_thought',
+           f'{host}:{port}', str(_USER_1), _THOUGHT_1]
+    process = subprocess.Popen(cmd, stdout=subprocess.PIPE, )
+    stdout, _ = process.communicate()
+    assert b'done' in stdout.lower()
+    user_id, timestamp, thought = get_message()
+    assert user_id == _USER_1
+    _assert_now(timestamp)
+    assert thought == _THOUGHT_1
 
 
-# def test_cli_error():
-#     host, port = _SERVER_ADDRESS
-#     cmd = ['python', 'soliddisco', 'client', 'upload_thought',
-#            f'{host}:{port}', str(_USER_1), _THOUGHT_1]
-#     process = subprocess.Popen(cmd, stdout=subprocess.PIPE, )
-#     stdout, _ = process.communicate()
-#     assert b'error' in stdout.lower()
+def test_cli_error():
+    host, port = _SERVER_ADDRESS
+    cmd = ['python', str(_DATA_DIR), 'client', 'upload_thought',
+           f'{host}:{port}', str(_USER_1), _THOUGHT_1]
+    process = subprocess.Popen(cmd, stdout=subprocess.PIPE, )
+    stdout, _ = process.communicate()
+    assert b'error' in stdout.lower()
 
 
 def _run_server(pipe):

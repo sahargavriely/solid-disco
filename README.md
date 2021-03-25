@@ -1,6 +1,5 @@
 ![build status](https://travis-ci.com/sahargavriely/solid-disco.svg?branch=main)
 [![codecov](https://codecov.io/gh/sahargavriely/solid-disco/branch/main/graph/badge.svg?token=1IEZYW6IJO)](https://codecov.io/gh/sahargavriely/solid-disco)
-![coverage](https://codecov.io/gh/sahargavriely/solid-disco/branch/main/graph/badge.svg)
 
 # solid-disco
 
