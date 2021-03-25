@@ -53,7 +53,7 @@ def test_cli(tmp_path):
 
     thread = threading.Thread(target=run_server)
     thread.start()
-    time.sleep(1)
+    time.sleep(10)
     _upload_thought(_USER_1, _TIMESTAMP_1, _THOUGHT_1)
     _upload_thought(_USER_2, _TIMESTAMP_2, _THOUGHT_2)
     process.send_signal(signal.SIGINT)
