@@ -10,8 +10,8 @@ import requests
 import soliddisco as web
 
 
-_WEBSERVER_ADDRESS = '127.0.0.1', 8041
-_WEBSERVER_URL = 'http://localhost:8041'
+_WEBSERVER_ADDRESS = '127.0.0.1', 8478
+_WEBSERVER_URL = 'http://localhost:8478'
 _DATA_DIR = pathlib.Path(__file__).absolute().parent.parent / 'data'
 
 
@@ -20,7 +20,7 @@ def webserver():
     parent, child = multiprocessing.Pipe()
     process = multiprocessing.Process(target=_run_webserver, args=(child,))
     process.start()
-    sleep(0.1)
+    sleep(1)
     parent.recv()
     try:
         yield

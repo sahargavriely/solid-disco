@@ -3,7 +3,6 @@ import subprocess
 import socket
 import struct
 import time
-import pathlib
 
 import pytest
 
@@ -15,8 +14,6 @@ _SERVER_BACKLOG = 1000
 
 _HEADER_FORMAT = 'LLI'
 _HEADER_SIZE = struct.calcsize(_HEADER_FORMAT)
-
-_DATA_DIR = pathlib.Path(__file__).absolute().parent.parent / 'soliddisco'
 
 _USER_1 = 1
 _USER_2 = 2
@@ -89,7 +86,7 @@ def test_cli(get_message):
 
 def test_cli_error():
     host, port = _SERVER_ADDRESS
-    cmd = ['python', '-m', str(_DATA_DIR), 'client', 'upload_thought',
+    cmd = ['python', '-m', 'soliddisco', 'client', 'upload_thought',
            f'{host}:{port}', str(_USER_1), _THOUGHT_1]
     process = subprocess.Popen(cmd, stdout=subprocess.PIPE, )
     stdout, _ = process.communicate()

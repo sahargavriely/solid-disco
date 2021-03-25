@@ -6,7 +6,7 @@ import pytest
 from soliddisco.utils import Listener
 
 
-_PORT = 5564
+_PORT = 5914
 _HOST = '127.0.0.1'
 _BACKLOG = 5000
 _REUSEADDR = True
