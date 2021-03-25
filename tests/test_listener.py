@@ -35,7 +35,7 @@ def test_defaults():
 def test_repr(listener):
     exp = f"Listener(port={_PORT!r}, host={_HOST!r}, backlog={_BACKLOG!r}, " \
           f"reuseaddr={_REUSEADDR!r})"
-    assert repr(listener) == exp
+    assert listener.__repr__() == exp
 
 
 def test_close(listener):
@@ -51,8 +51,7 @@ def test_close(listener):
 
 def test_accept(listener):
     sock = socket.socket()
-    listener.start()
-    try:
+    with listener:
         time.sleep(0.1)
         sock.connect((_HOST, _PORT))
         connection = listener.accept()
@@ -61,5 +60,3 @@ def test_accept(listener):
             assert connection.receive(len(_DATA)) == _DATA
         finally:
             connection.close()
-    finally:
-        listener.stop()

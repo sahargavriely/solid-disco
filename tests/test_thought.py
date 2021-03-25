@@ -24,18 +24,18 @@ def test_attributes(t):
 
 
 def test_repr(t):
-    assert repr(t) == f'Thought(user_id={user_id!r}, ' \
+    assert t.__repr__() == f'Thought(user_id={user_id!r}, ' \
                       f'timestamp={datetime!r}, thought={thought!r})'
 
 
 def test_str(t):
-    assert str(t) == f'[{datetime:%Y-%m-%d %H:%M:%S}] ' \
+    assert t.__str__() == f'[{datetime:%Y-%m-%d %H:%M:%S}] ' \
                      f'user {user_id}: {thought}'
 
 
 def test_eq(t):
     t1 = Thought(user_id, datetime, thought)
-    assert t1 == t
+    assert t1.__eq__(t)
     t2 = Thought(user_id + 1, datetime, thought)
     assert t2 != t
     t3 = Thought(user_id, datetime + dt.timedelta(minutes=1), thought)

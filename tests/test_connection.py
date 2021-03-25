@@ -28,7 +28,7 @@ def test_repr(server):
     sock.connect(('127.0.0.1', _PORT))
     connection = Connection(sock)
     _, other_port = sock.getsockname()
-    assert repr(connection) == f'<Connection from 127.0.0.1:{other_port}' \
+    assert connection.__repr__() == f'<Connection from 127.0.0.1:{other_port}' \
                                f' to 127.0.0.1:{_PORT}>'
 
 
@@ -42,9 +42,7 @@ def test_close(server):
 
 
 def test_send(server):
-    sock = socket.socket()
-    sock.connect(('127.0.0.1', _PORT))
-    connection = Connection(sock)
+    connection = Connection.connect('127.0.0.1', _PORT)
     try:
         client, _ = server.accept()
         connection.send(_DATA)
@@ -62,16 +60,16 @@ def test_send(server):
 def test_receive(server):
     sock = socket.socket()
     sock.connect(('127.0.0.1', _PORT))
-    connection = Connection(sock)
-    try:
-        client, _ = server.accept()
-        client.sendall(_DATA)
-        first = connection.receive(1)
-        assert first == _DATA[:1]
-        rest = connection.receive(len(_DATA) - 1)
-        assert rest == _DATA[1:]
-    finally:
-        connection.close()
+    with Connection(sock) as connection:
+        try:
+            client, _ = server.accept()
+            client.sendall(_DATA)
+            first = connection.receive(1)
+            assert first == _DATA[:1]
+            rest = connection.receive(len(_DATA) - 1)
+            assert rest == _DATA[1:]
+        finally:
+            connection.close()
 
 
 def test_incomplete_data(server):
